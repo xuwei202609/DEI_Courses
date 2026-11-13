@@ -1,0 +1,9 @@
+import http from 'node:http';
+import {createChatService} from './chat-server.mjs';
+import fs from 'node:fs';
+import path from 'node:path';
+import {fileURLToPath} from 'node:url';
+const root=path.dirname(fileURLToPath(import.meta.url));
+const types={'.html':'text/html; charset=utf-8','.js':'text/javascript; charset=utf-8','.css':'text/css; charset=utf-8','.mp4':'video/mp4','.png':'image/png','.jpg':'image/jpeg','.jpeg':'image/jpeg','.webp':'image/webp','.ttf':'font/ttf'};
+const port=Number(process.argv[2]||4183), chat=await createChatService({root,port});
+http.createServer(async(req,res)=>{try{if(await chat.handle(req,res,new URL(req.url,'http://127.0.0.1')))return;if(!['GET','HEAD'].includes(req.method)){res.writeHead(405);res.end();return;}const u=new URL(req.url,'http://localhost');const name=decodeURIComponent(u.pathname==='/'?'index.html':u.pathname.slice(1));const target=path.resolve(root,name);if(!target.startsWith(root+path.sep)||name.split(/[\\/]/).some(x=>x.startsWith('.'))||!types[path.extname(target)])throw Error();const stat=fs.statSync(target);if(!stat.isFile())throw Error();let start=0,end=stat.size-1,code=200;const headers={'Content-Type':types[path.extname(target)],'Accept-Ranges':'bytes','Cache-Control':'no-cache','X-Content-Type-Options':'nosniff'};if(req.headers.range){const match=/^bytes=(\d+)-(\d*)$/.exec(req.headers.range);if(!match)throw Error();start=+match[1];if(match[2])end=Math.min(end,+match[2]);if(start>end||start>=stat.size){res.writeHead(416);res.end();return;}code=206;headers['Content-Range']=`bytes ${start}-${end}/${stat.size}`;}headers['Content-Length']=end-start+1;res.writeHead(code,headers);if(req.method==='HEAD')res.end();else{const s=fs.createReadStream(target,{start,end});res.on('close',()=>s.destroy());s.pipe(res);}}catch{res.writeHead(404);res.end('Not found');}}).listen(Number(process.argv[2]||4183),'127.0.0.1',()=>console.log('BELONG V3: http://127.0.0.1:'+(process.argv[2]||4183)));

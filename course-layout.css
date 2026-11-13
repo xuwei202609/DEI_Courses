@@ -1,0 +1,39 @@
+/* Only the Courses page uses this layout. */
+.course-navigation{height:auto;min-height:104px;gap:30px;padding:16px 5%;display:grid;grid-template-columns:auto minmax(230px,1fr) minmax(140px,190px) auto}
+.course-navigation-title h1{font:26px/1.2 Lora,serif;margin:5px 0 0}
+.course-navigation-title .section-eyebrow{font-size:10px;letter-spacing:.12em;margin:0;line-height:1.5}
+.course-navigation-progress{display:flex;flex-direction:column;gap:6px;min-width:0}
+.course-navigation-progress p{margin:0;font-size:12px;line-height:1.4}
+.course-navigation-progress .mentor-name{font-weight:400;color:#737b69;font-size:11px}
+.course-navigation-progress progress{width:100%;height:7px;accent-color:#7b8b65}
+.course-navigation nav{gap:28px;white-space:nowrap}
+.course-navigation nav a{font-size:15px}
+.course-shell{margin:0 auto 24px;align-items:stretch;gap:5vw}
+.course-shell .mentor-panel,.course-shell .conversation{height:72dvh;min-height:520px}
+.course-shell .mentor-panel{display:block;padding:0;border:0;border-radius:0;box-shadow:none;background:transparent;overflow:hidden}
+.course-shell .mentor-frame{width:100%;height:100%;border:0;border-radius:0;background:transparent;overflow:hidden}
+.course-shell .mentor-frame video{display:block;width:100%;height:100%;object-fit:cover;object-position:center;transform:scale(1.15);border:0;outline:0;border-radius:0;background:transparent}
+.course-shell .mentor-frame video[hidden]{display:none}
+.course-shell .conversation{min-width:0}
+.course-shell #transcript{padding-top:16px}
+.course-save-status{margin:0;padding:0 26px 14px;color:#6a705e;font:11px/1.5 Arimo,Arial,sans-serif}
+@media(max-width:1100px){.course-navigation{gap:18px;grid-template-columns:auto minmax(190px,1fr) 140px auto}.course-navigation-title h1{font-size:22px}.course-navigation-title .section-eyebrow{font-size:8px}.course-navigation nav{gap:18px}.course-navigation nav a{font-size:14px}}
+@media(max-width:850px){.course-navigation{min-height:124px;grid-template-columns:1fr auto;padding:12px 4%;gap:10px 18px}.course-navigation .v3-brand{grid-column:1;grid-row:1}.course-navigation nav{grid-column:2;grid-row:1}.course-navigation-title{grid-column:1;grid-row:2;min-width:0}.course-navigation-progress{grid-column:2;grid-row:2;max-width:160px;justify-self:stretch}.course-navigation-title h1{font-size:19px}.course-navigation-title .section-eyebrow{font-size:7px}.course-navigation-progress .mentor-name{display:none}.course-shell{width:94%;grid-template-columns:minmax(0,24fr) minmax(0,70fr);gap:3%;margin:0 auto 18px}.course-shell .mentor-panel,.course-shell .conversation{height:73dvh;min-height:500px}.course-shell .mentor-frame{height:100%}.course-save-status{padding:0 16px 10px;font-size:10px}.course-shell #transcript{padding:12px}.course-shell #interaction{padding:10px 12px}}
+
+/* Allow the full width of both source videos; trim only their encoded black bands. */
+.course-shell{margin-top:clamp(28px,4.5dvh,50px)}
+.course-shell .mentor-panel{display:flex;flex-direction:column;gap:12px;overflow:visible}
+.course-shell .mentor-frame{display:flex;align-items:center;justify-content:center;flex:1;min-height:0;height:auto;overflow:visible}
+.course-shell .mentor-footage{position:relative;width:min(94%,calc((72dvh - 38px)*.6392));aspect-ratio:2160/3379.2;flex:none;overflow:hidden;background:transparent}
+.course-shell .mentor-footage video{position:absolute;left:0;top:-6.818182%;width:100%;height:113.636364%;object-fit:fill;transform:none;max-width:none}
+.course-shell .mentor-panel>.mentor-name{flex:none;margin:0;text-align:center;font:14px/22px Arimo,Arial,sans-serif;color:#737b69}
+.course-navigation-progress #chapter-progress{font-size:28px;font-weight:600;line-height:1.25;white-space:nowrap}
+.course-navigation-progress progress{height:10px}
+@media(max-width:1100px){.course-navigation-progress #chapter-progress{font-size:25px}.course-navigation{grid-template-columns:auto minmax(190px,1fr) minmax(160px,190px) auto}}
+@media(max-width:850px){.course-navigation{grid-template-columns:1fr auto}.course-navigation-progress #chapter-progress{font-size:22px}.course-shell{margin-top:28px}.course-shell .mentor-frame{height:auto}.course-shell .mentor-footage{width:min(94%,calc((73dvh - 38px)*.6392))}.course-shell .mentor-panel>.mentor-name{font-size:11px;line-height:16px;overflow-wrap:anywhere}}
+.course-shell .mentor-frame{flex:0 0 auto;align-items:flex-start}.course-shell .mentor-panel{justify-content:flex-start}
+
+/* Match the requested mentor height without zooming or cropping the figure. */
+.course-shell .mentor-panel>.mentor-name{color:var(--ink)}
+@media(min-width:851px){.course-shell .mentor-frame{flex:1 1 0;align-items:flex-start;height:auto;min-height:0}.course-shell .mentor-footage{width:auto;height:100%;max-width:none;aspect-ratio:2160/3379.2}}
+@media(min-width:851px) and (max-width:1100px){.course-shell .mentor-footage{width:calc(100% + 5vw);height:auto;max-height:100%}}
