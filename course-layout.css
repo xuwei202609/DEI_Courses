@@ -50,3 +50,5 @@
 #practice-dialog button{background:#242622;color:white;border:0;border-radius:25px;padding:12px 24px}
 #practice-status{font-size:14px;color:#80502d;line-height:1.6}
 @media(max-width:600px){#practice-content legend{font-size:18px}.practice-modal-option{padding:12px}}
+/* Crop 5% from each edge, retaining the existing mentor display area. */
+.course-shell .mentor-footage #standing,.course-shell .mentor-footage #moving{left:-5.555556%;top:-5.555556%;width:111.111111%;height:111.111111%;object-fit:contain;transform:none}
